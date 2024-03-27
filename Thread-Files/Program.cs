@@ -32,9 +32,16 @@
 //Method4();
 
 using Thread_Files;
+using Thread_Files.Controllers;
 
-ExampleFile file = new ExampleFile();
+
+//ExampleFile file = new ExampleFile();
 //file.WriteToFile("C:\\Users\\HP\\Desktop\\C#\\file2.txt", "Salam Yusif");
 //file.WriteToFile("C:\\Users\\HP\\Desktop\\C#\\file3.txt", "salam Behruz");
-//file.ReadFromFile();
+//file.ReadFromFile("C:\\Users\\HP\\Desktop\\C#\\file2.txt");
+//file.WriteToNewFile("C:\\Users\\HP\\Desktop\\C#\\file7.txt","necesiz Nesir bey?");
 
+FileController fileController = new FileController();
+//await fileController.ReadDataAsync();
+await fileController.CreateFileWithContentAsync();
+//await fileController.DeleteAsync();

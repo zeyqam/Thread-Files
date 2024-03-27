@@ -8,24 +8,55 @@ namespace Thread_Files
 {
     internal class ExampleFile
     {
-        public void WriteToFile( string path,string text)
+        public async Task WriteToExistFile( string path,string text)
         {
-            FileStream fs=new FileStream(path,FileMode.Create,FileAccess.Write);
-            StreamWriter wr =new StreamWriter(fs);
-            wr.WriteLine(text);
+            using(FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+            {
+                using(StreamWriter wr = new StreamWriter(fs))
+                {
+                   await wr.WriteLineAsync(text);
+                }
+            }
+            
+            
        // C:\\Users\\HP\\Desktop\\C#\\file1.txt
-            wr.Close();
-            fs.Close();
+            
         }
 
-        public void ReadFromFile()
+        public void ReadFromFile(string path)
         {
-            FileStream fs=new FileStream("C:\\Users\\HP\\Desktop\\C#\\file2.txt",FileMode.Open,FileAccess.Read);
-            StreamReader st=new StreamReader(fs);
-            string result=st.ReadToEnd();
-            Console.WriteLine(result);
-            st.Close();
-            fs.Close();
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                using(StreamReader sr = new StreamReader(fs))
+                {
+                    string result = sr.ReadToEnd();
+                    Console.WriteLine(result);
+                }
+            }
+            
+           
+          ;
+        }
+
+        public void WriteToNewFile(string path, string text)
+        {
+            try
+            {
+                using (FileStream fs = new(path, FileMode.CreateNew, FileAccess.Write))
+                {
+                    byte[] datas = Encoding.UTF8.GetBytes(text);
+                    fs.Write(datas, 0, datas.Length);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+            
+           
+
+           
         }
     }
 }
